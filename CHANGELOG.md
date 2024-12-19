@@ -1,3 +1,6 @@
+# 6.0.0.0
+* Port to 1.21
+
 # 5.0.1.0
 * Move to arch loom and fix project compiling
 * Switch datapack path to `<modid>/enhancedcelestials/<path>` instead of `<modid>/<path>` on fabric.
