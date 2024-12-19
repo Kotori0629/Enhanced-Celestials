@@ -204,7 +204,7 @@ public class DefaultLunarEvents {
                     new LunarMobSettings(ImmutableMap.of(), LunarMobSpawnInfo.DEFAULT, List.of(
                             Pair.of(AnyCondition.INSTANCE, new MobEffectInstanceBuilder(MobEffects.LUCK.value(), 1210, 0, true, false, false))
                     ), new FlipCondition(AnyCondition.INSTANCE)),
-                    DropSettings.EMPTY)
+                    DropSettings.EMPTY, 0.5F, 0.5F, 2.0F, 1.5F)
     );
 
     public static final ResourceKey<LunarEvent> SUPER_BLUE_MOON = createEvent("super_blue_moon", () ->
@@ -229,7 +229,7 @@ public class DefaultLunarEvents {
                     new LunarMobSettings(ImmutableMap.of(), LunarMobSpawnInfo.DEFAULT, List.of(
                             Pair.of(AnyCondition.INSTANCE, new MobEffectInstanceBuilder(MobEffects.LUCK.value(), 1210, 4, true, false, false))
                     ), new FlipCondition(AnyCondition.INSTANCE)),
-                    DropSettings.EMPTY)
+                    DropSettings.EMPTY, 0.25F, 0.25F, 4.0F, 2F)
     );
 
 

@@ -27,7 +27,11 @@ public class LunarEvent {
                     LunarEventClientSettings.CODEC.fieldOf("client_settings").forGetter(LunarEvent::getClientSettings),
                     LunarTextComponents.CODEC.fieldOf("text_components").forGetter(LunarEvent::getTextComponents),
                     LunarMobSettings.CODEC.fieldOf("mob_settings").forGetter(LunarEvent::getLunarMobSettings),
-                    DropSettings.CODEC.fieldOf("drops").forGetter(LunarEvent::getDropSettings)
+                    DropSettings.CODEC.fieldOf("drops").forGetter(LunarEvent::getDropSettings),
+                    Codec.DOUBLE.fieldOf("anvil_cost_amplifier").forGetter(LunarEvent::anvilCostAmplifier),
+                    Codec.DOUBLE.fieldOf("enchantment_table_cost_amplifier").forGetter(LunarEvent::enchantmentTableCostAmplifier),
+                    Codec.DOUBLE.fieldOf("xp_amplifier").forGetter(LunarEvent::xpAmplifier),
+                    Codec.DOUBLE.fieldOf("beacon_radius_amplifier").forGetter(LunarEvent::beaconRadiusAmplifier)
             ).apply(builder, LunarEvent::new)
     );
 
@@ -36,13 +40,25 @@ public class LunarEvent {
     private final LunarTextComponents textComponents;
     private final LunarMobSettings lunarMobSettings;
     private final DropSettings dropSettings;
+    private final double anvilCostAmplifier;
+    private final double enchantmentTableCostAmplifier;
+    private final double xpAmplifier;
+    private final double beaconRadiusAmplifier;
 
     public LunarEvent(Map<ResourceKey<Level>, SpawnRequirements> eventChancesByDimension, LunarEventClientSettings clientSettings, LunarTextComponents textComponents, LunarMobSettings lunarMobSettings, DropSettings dropSettings) {
+        this(eventChancesByDimension, clientSettings, textComponents, lunarMobSettings, dropSettings, 1.0F, 1.0F, 1F,1);
+    }
+
+    public LunarEvent(Map<ResourceKey<Level>, SpawnRequirements> eventChancesByDimension, LunarEventClientSettings clientSettings, LunarTextComponents textComponents, LunarMobSettings lunarMobSettings, DropSettings dropSettings, double anvilCostAmplifier, double enchantmentTableCostAmplifier, double xpAmplifier, double beaconRadiusAmplifier) {
         this.eventChancesByDimension = eventChancesByDimension;
         this.clientSettings = clientSettings;
         this.textComponents = textComponents;
         this.lunarMobSettings = lunarMobSettings;
         this.dropSettings = dropSettings;
+        this.anvilCostAmplifier = anvilCostAmplifier;
+        this.xpAmplifier = xpAmplifier;
+        this.enchantmentTableCostAmplifier = enchantmentTableCostAmplifier;
+        this.beaconRadiusAmplifier = beaconRadiusAmplifier;
     }
 
     public void onBlockItemDrop(ServerLevel world, ItemStack itemStack) {
@@ -51,6 +67,22 @@ public class LunarEvent {
                 itemStack.setCount((int) Math.round(itemStack.getCount() * multiplier));
             }
         });
+    }
+
+    public double anvilCostAmplifier() {
+        return this.anvilCostAmplifier;
+    }
+
+    public double enchantmentTableCostAmplifier() {
+        return this.enchantmentTableCostAmplifier;
+    }
+
+    public double xpAmplifier() {
+        return this.xpAmplifier;
+    }
+
+    public double beaconRadiusAmplifier() {
+        return this.beaconRadiusAmplifier;
     }
 
     @Nullable

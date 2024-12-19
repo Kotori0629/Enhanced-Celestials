@@ -1,4 +1,6 @@
 {
+  "anvil_cost_amplifier": 1.0,
+  "beacon_radius_amplifier": 1.0,
   "client_settings": {
     "color_settings": {
       "moon_texture_color": "ffdb63",
@@ -24,6 +26,7 @@
       "#enhancedcelestials:harvest_moon_crops": 4.0
     }
   },
+  "enchantment_table_cost_amplifier": 1.0,
   "mob_settings": {
     "blocks_sleeping": {
       "type": "corgilib:flipped",
@@ -75,5 +78,6 @@
         }
       }
     }
-  }
+  },
+  "xp_amplifier": 1.0
 }

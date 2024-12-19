@@ -4,6 +4,9 @@
   "package": "dev.corgitaco.enhancedcelestials.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "AnvilMenuMixin",
+    "BeaconBlockEntityMixin",
+    "EnchantmentMenuMixin",
     "MixinBlock",
     "MixinConfiguredFeature",
     "MixinEntityDensityManager",
@@ -14,6 +17,7 @@
     "MixinSlimeEntity",
     "MixinWorld",
     "MixinWorldEntitySpawner",
+    "PlayerMixin",
     "server.MixinCommands"
   ],
   "client": [

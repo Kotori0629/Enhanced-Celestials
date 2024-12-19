@@ -1,4 +1,6 @@
 {
+  "anvil_cost_amplifier": 0.25,
+  "beacon_radius_amplifier": 2.0,
   "client_settings": {
     "color_settings": {
       "moon_texture_color": "ffff",
@@ -22,6 +24,7 @@
   "drops": {
     "drop_enhancer": {}
   },
+  "enchantment_table_cost_amplifier": 0.25,
   "mob_settings": {
     "blocks_sleeping": {
       "type": "corgilib:flipped",
@@ -86,5 +89,6 @@
         }
       }
     }
-  }
+  },
+  "xp_amplifier": 4.0
 }
