@@ -102,8 +102,10 @@ public class LunarForecast {
             return defaultLunarEvent();
         }
 
-        if (level.isRaining()) {
-            return defaultLunarEvent();
+        if (this.dimensionSettingsHolder.value().requiresClearSkies()) {
+            if (level.isRaining()) {
+                return defaultLunarEvent();
+            }
         }
 
         Holder.Reference<LunarEvent> defaultEvent = defaultLunarEvent();
