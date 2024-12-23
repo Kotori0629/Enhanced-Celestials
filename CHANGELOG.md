@@ -1,3 +1,7 @@
+# 6.0.1.0
+* Rewrite Lunar forecasting internal to address various bugs and desync issues.
+* Add a new config option to enforce a max number of days between events.
+
 # 6.0.0.0
 * Port to 1.21
 
