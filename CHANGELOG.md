@@ -1,3 +1,7 @@
+# 5.0.2.0
+* Rewrite Lunar forecasting internal to address various bugs and desync issues.
+* Add a new config option to enforce a max number of days between events.
+
 # 5.0.1.0
 * Move to arch loom and fix project compiling
 * Switch datapack path to `<modid>/enhancedcelestials/<path>` instead of `<modid>/<path>` on fabric.
