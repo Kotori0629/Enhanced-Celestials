@@ -6,7 +6,7 @@ import dev.corgitaco.enhancedcelestials.api.EnhancedCelestialsRegistry;
 import net.minecraft.resources.ResourceKey;
 
 public record LunarDimensionSettings(ResourceKey<LunarEvent> defaultEvent, long trackedPastEventsMaxCount,
-                                     long dayLength, long yearLengthInDays, long minDaysBetweenEvents, boolean requiresClearSkies) {
+                                     long dayLength, long yearLengthInDays, long minDaysBetweenEvents, long maxDaysBetweenEvents, boolean requiresClearSkies) {
 
     public static final Codec<LunarDimensionSettings> CODEC = RecordCodecBuilder.create(builder ->
             builder.group(
@@ -15,6 +15,7 @@ public record LunarDimensionSettings(ResourceKey<LunarEvent> defaultEvent, long 
                     Codec.LONG.fieldOf("day_length").forGetter(LunarDimensionSettings::dayLength),
                     Codec.LONG.fieldOf("year_length_in_days").forGetter(LunarDimensionSettings::yearLengthInDays),
                     Codec.LONG.fieldOf("min_days_between_all_events").forGetter(LunarDimensionSettings::minDaysBetweenEvents),
+                    Codec.LONG.fieldOf("max_days_between_all_events").orElse(98L).forGetter(LunarDimensionSettings::maxDaysBetweenEvents),
                     Codec.BOOL.fieldOf("requires_clear_skies").orElse(true).forGetter(LunarDimensionSettings::requiresClearSkies)
             ).apply(builder, LunarDimensionSettings::new)
     );

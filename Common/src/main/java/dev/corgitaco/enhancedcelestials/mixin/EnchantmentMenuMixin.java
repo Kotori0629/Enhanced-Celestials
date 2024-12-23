@@ -36,7 +36,7 @@ public abstract class EnchantmentMenuMixin extends AbstractContainerMenu {
         EnhancedCelestialsContext lunarContext = ((EnhancedCelestialsWorldData) level).getLunarContext();
         if (lunarContext != null) {
             LunarForecast lunarForecast = lunarContext.getLunarForecast();
-            double xp = lunarForecast.getCurrentEvent(level.getRainLevel(1) < 1).value().enchantmentTableCostAmplifier();
+            double xp = lunarForecast.currentLunarEvent().value().enchantmentTableCostAmplifier();
             return (int) (original * xp);
         }
         return original;
@@ -56,7 +56,7 @@ public abstract class EnchantmentMenuMixin extends AbstractContainerMenu {
             EnhancedCelestialsContext lunarContext = ((EnhancedCelestialsWorldData) player.level()).getLunarContext();
             if (lunarContext != null) {
                 LunarForecast lunarForecast = lunarContext.getLunarForecast();
-                double enchantmentTableCostAmplifier = lunarForecast.getCurrentEvent(player.level().getRainLevel(1) < 1).value().enchantmentTableCostAmplifier();
+                double enchantmentTableCostAmplifier = lunarForecast.currentLunarEvent().value().enchantmentTableCostAmplifier();
                 int ogCost = (int) (cost / enchantmentTableCostAmplifier);
                 return original.call(registryAccess, stack, slot, ogCost);
             }

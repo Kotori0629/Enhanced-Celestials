@@ -27,7 +27,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         EnhancedCelestialsContext lunarContext = ((EnhancedCelestialsWorldData) world).getLunarContext();
         if (lunarContext != null) {
             LunarForecast lunarForecast = lunarContext.getLunarForecast();
-            return ((Double) (((Integer)original) * lunarForecast.getCurrentEvent(world.getRainLevel(1) < 1).value().anvilCostAmplifier())).intValue();
+            return ((Double) (((Integer)original) * lunarForecast.currentLunarEvent().value().anvilCostAmplifier())).intValue();
         }
         return original;
     }
@@ -38,7 +38,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         EnhancedCelestialsContext lunarContext = ((EnhancedCelestialsWorldData) world).getLunarContext();
         if (lunarContext != null) {
             LunarForecast lunarForecast = lunarContext.getLunarForecast();
-            return ((Double) (((Integer)original) * lunarForecast.getCurrentEvent(world.getRainLevel(1) < 1).value().anvilCostAmplifier())).intValue();
+            return ((Double) (((Integer)original) * lunarForecast.currentLunarEvent().value().anvilCostAmplifier())).intValue();
         }
         return original;
 

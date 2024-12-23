@@ -5,6 +5,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import dev.corgitaco.enhancedcelestials.EnhancedCelestialsWorldData;
 import dev.corgitaco.enhancedcelestials.core.EnhancedCelestialsContext;
 import dev.corgitaco.enhancedcelestials.lunarevent.LunarForecast;
+import dev.corgitaco.enhancedcelestials.lunarevent.ServerLunarForecast;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -26,7 +27,9 @@ public class LunarForecastCommand {
             return 0;
         }
         LunarForecast lunarForecast = enhancedCelestialsContext.getLunarForecast();
-        lunarForecast.recompute(world);
+        if (lunarForecast instanceof ServerLunarForecast serverLunarForecast) {
+            serverLunarForecast.recomputeForecast();
+        }
         source.sendSuccess(() -> Component.translatable("enhancedcelestials.lunarforecast.recompute"), true);
         return 1;
     }
@@ -41,7 +44,7 @@ public class LunarForecastCommand {
             return 0;
         }
 
-        source.sendSuccess(() -> enhancedCelestialsContext.getLunarForecast().getForecastComponent(world.getDayTime()), true);
+        source.sendSuccess(() -> enhancedCelestialsContext.getLunarForecast().getForecastComponent(), true);
         return 1;
     }
 }

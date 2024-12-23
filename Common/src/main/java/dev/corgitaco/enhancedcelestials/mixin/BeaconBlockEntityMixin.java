@@ -19,7 +19,7 @@ public class BeaconBlockEntityMixin {
         EnhancedCelestialsContext lunarContext = ((EnhancedCelestialsWorldData) level).getLunarContext();
         if (lunarContext != null) {
             LunarForecast lunarForecast = lunarContext.getLunarForecast();
-            double beaconRadiusAmplifier = lunarForecast.getCurrentEvent(level.getRainLevel(0) < 1).value().beaconRadiusAmplifier();
+            double beaconRadiusAmplifier = lunarForecast.currentLunarEvent().value().beaconRadiusAmplifier();
             return AABB.ofSize(original.getCenter(), original.getXsize() * beaconRadiusAmplifier, original.getYsize() * beaconRadiusAmplifier, original.getZsize() * beaconRadiusAmplifier);
         }
 

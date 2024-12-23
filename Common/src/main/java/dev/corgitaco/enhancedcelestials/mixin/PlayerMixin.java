@@ -8,7 +8,6 @@ import dev.corgitaco.enhancedcelestials.lunarevent.LunarForecast;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -25,7 +24,7 @@ public abstract class PlayerMixin extends LivingEntity {
         EnhancedCelestialsContext lunarContext = ((EnhancedCelestialsWorldData) this.level()).getLunarContext();
         if (lunarContext != null && xpPoints >= 1) {
             LunarForecast lunarForecast = lunarContext.getLunarForecast();
-            double xp = lunarForecast.getCurrentEvent(this.level().getRainLevel(1) < 1).value().xpAmplifier();
+            double xp = lunarForecast.currentLunarEvent().value().xpAmplifier();
 
             original.call((int) (xp * xpPoints));
         } else {
