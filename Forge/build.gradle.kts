@@ -83,7 +83,7 @@ publisher {
         github(project.properties["github_token"].toString())
     }
 
-    curseID.set(project.properties["curseforge_forge_id"].toString())
+    curseID.set(project.properties["curseforge_id"].toString())
     modrinthID.set(project.properties["modrinth_id"].toString())
     githubRepo.set("https://github.com/CorgiTaco/Enhanced-Celestials/")
     setReleaseType(ReleaseType.RELEASE)
