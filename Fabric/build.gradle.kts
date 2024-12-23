@@ -44,6 +44,14 @@ dependencies {
     "shadowBundle"(project(":Common", "transformProductionFabric"))
 
     modApi("corgitaco.corgilib:Corgilib-Fabric:$minecraftVersion-${project.properties["corgilib_version"]}")
+
+    modLocalRuntime("org.joml:joml:1.10.4")
+    modLocalRuntime("org.anarres:jcpp:1.4.14")
+    modLocalRuntime("io.github.douira:glsl-transformer:2.0.0-pre14")
+
+    // Mod dependencies
+    modLocalRuntime ("maven.modrinth:sodium:${project.properties["sodium_version"]}")
+    modLocalRuntime ("maven.modrinth:iris:${project.properties["iris_version"]}")
 }
 
 tasks {
