@@ -19,6 +19,7 @@ public class DefaultLunarDimensionSettings {
                     24000L,
                     100,
                     2,
+                    98,
                     true
             )
     );

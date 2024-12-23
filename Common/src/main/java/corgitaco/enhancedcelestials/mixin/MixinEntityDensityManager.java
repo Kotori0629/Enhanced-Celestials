@@ -36,7 +36,7 @@ public class MixinEntityDensityManager {
         ServerLevel level = ((ChunkMapAccess) ((LocalMobCapCalculatorAccess) this.localMobCapCalculator).getChunkMap()).getLevel();
         EnhancedCelestialsContext enhancedCelestialsContext = ((EnhancedCelestialsWorldData) level).getLunarContext();
         if (enhancedCelestialsContext != null) {
-            int i = (int) (entityClassification.getMaxInstancesPerChunk() * (this.spawnableChunkCount * enhancedCelestialsContext.getLunarForecast().getCurrentEvent(level.getRainLevel(1) < 1).value().getSpawnMultiplierForMonsterCategory(entityClassification)) / WorldEntitySpawnerAccess.getMagicNumber());
+            int i = (int) (entityClassification.getMaxInstancesPerChunk() * (this.spawnableChunkCount * enhancedCelestialsContext.getLunarForecast().currentLunarEvent().value().getSpawnMultiplierForMonsterCategory(entityClassification)) / WorldEntitySpawnerAccess.getMagicNumber());
             // Global Calculation
             if (this.mobCategoryCounts.getInt(entityClassification) >= i) {
                 cir.setReturnValue(false);

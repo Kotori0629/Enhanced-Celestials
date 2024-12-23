@@ -5,16 +5,18 @@ import corgitaco.enhancedcelestials.api.EnhancedCelestialsRegistry;
 import corgitaco.enhancedcelestials.api.lunarevent.LunarDimensionSettings;
 import corgitaco.enhancedcelestials.api.lunarevent.LunarEvent;
 import corgitaco.enhancedcelestials.lunarevent.LunarForecast;
+import corgitaco.enhancedcelestials.lunarevent.ServerLunarForecast;
 import corgitaco.enhancedcelestials.meteor.MeteorContext;
 import corgitaco.enhancedcelestials.save.LunarForecastSavedData;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.ChunkAccess;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class EnhancedCelestialsContext {
@@ -32,27 +34,32 @@ public class EnhancedCelestialsContext {
     @Nullable
     public static EnhancedCelestialsContext forLevel(Level level, Optional<LunarForecast.Data> saveData) {
         Registry<LunarDimensionSettings> lunarDimensionSettingsRegistry = level.registryAccess().registryOrThrow(EnhancedCelestialsRegistry.LUNAR_DIMENSION_SETTINGS_KEY);
-        Registry<LunarEvent> lunarEventRegistry = level.registryAccess().registryOrThrow(EnhancedCelestialsRegistry.LUNAR_EVENT_KEY);
         ResourceLocation location = level.dimension().location();
         Optional<Holder.Reference<LunarDimensionSettings>> possibleLunarDimensionSettings = lunarDimensionSettingsRegistry.getHolder(ResourceKey.create(EnhancedCelestialsRegistry.LUNAR_DIMENSION_SETTINGS_KEY, location));
 
         if (possibleLunarDimensionSettings.isPresent()) {
             Holder<LunarDimensionSettings> lunarDimensionSettings = possibleLunarDimensionSettings.get();
-            LunarForecast.Data forecastData = saveData.orElseGet(() -> LunarForecastSavedData.get(level).getForecastSaveData());
+
             LunarForecast forecast;
-            long dayTime = level.getDayTime();
-            if (forecastData == null) {
-                forecast = new LunarForecast(lunarDimensionSettings, lunarEventRegistry, dayTime);
+
+            if (!level.isClientSide) {
+                forecast = new ServerLunarForecast((ServerLevel) level, lunarDimensionSettings);
             } else {
-                forecast = new LunarForecast(lunarDimensionSettings, lunarEventRegistry, dayTime, forecastData);
+                forecast = new LunarForecast(level, lunarDimensionSettings);
             }
+            LunarForecast.Data forecastData = saveData.orElseGet(() -> LunarForecastSavedData.get(level).getForecastSaveData());
+
+            if (forecastData != null) {
+                forecast.loadData(forecastData);
+            }
+
             return new EnhancedCelestialsContext(forecast);
         }
         return null;
     }
 
     public void tick(Level world) {
-        this.lunarForecast.tick(world);
+        this.lunarForecast.tick();
         if (world.getGameTime() % 2400 == 0) {
             save(world);
         }
@@ -65,7 +72,7 @@ public class EnhancedCelestialsContext {
     }
 
     public void save(Level world) {
-        LunarForecastSavedData.get(world).setForecastSaveData(this.lunarForecast.data());
+        LunarForecastSavedData.get(world).setForecastSaveData(this.lunarForecast.saveData());
     }
 
     public LunarForecast getLunarForecast() {
