@@ -1,3 +1,6 @@
+# 5.0.2.2
+* Fix issues with rain and lunar events.
+
 # 5.0.2.1
 * Fix crashes/errors related to the new Lunar Forecast system.
 
