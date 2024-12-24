@@ -42,9 +42,16 @@ public class SetLunarEventCommand {
             return 0;
         }
 
+
+
         LunarForecast forecast = enhancedCelestialsContext.getLunarForecast();
 
         if (forecast instanceof ServerLunarForecast serverLunarForecast) {
+            if (world.isRaining() && serverLunarForecast.getDimensionSettingsHolder().value().requiresClearSkies() ) {
+                source.sendFailure(Component.literal("Lunar events can only be started during clear skies!"));
+                return 0;
+            }
+
             Either<ResourceKey<LunarEvent>, TagKey<LunarEvent>> unwrap = lunarEventResult.unwrap();
             if (unwrap.left().isPresent()) {
                 ResourceKey<LunarEvent> lunarEventResourceKey = unwrap.left().orElseThrow();
