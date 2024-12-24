@@ -61,6 +61,10 @@ public class LunarForecast {
 
     }
 
+    public Holder<LunarDimensionSettings> getDimensionSettingsHolder() {
+        return dimensionSettingsHolder;
+    }
+
     public void loadData(Data data) {
         this.forecast.clear();
         this.forecast.addAll(data.forecast);
@@ -95,7 +99,7 @@ public class LunarForecast {
         if (currentLunarEvent() != lastTickEvent) {
             eventSwitched(lastTickEvent, currentLunarEvent());
         }
-        lastTickEvent = level.isNight() ? getLunarEventForDay(getCurrentDay()) : defaultLunarEvent();
+        lastTickEvent = level.isNight() && (!level.isRaining() && this.dimensionSettingsHolder.value().requiresClearSkies()) ? getLunarEventForDay(getCurrentDay()) : defaultLunarEvent();
     }
 
     public boolean switchingEvents() {
