@@ -52,6 +52,8 @@ dependencies {
     // Mod dependencies
     modLocalRuntime ("maven.modrinth:sodium:${project.properties["sodium_version"]}")
     modLocalRuntime ("maven.modrinth:iris:${project.properties["iris_version"]}")
+
+    modImplementation("maven.modrinth:iris:${project.properties["iris_version"]}")
 }
 
 tasks {
