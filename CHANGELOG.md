@@ -1,3 +1,6 @@
+# 6.0.1.2
+* Fix issues with rain and lunar events.
+
 # 6.0.1.1
 * Fix crashes/errors related to the new Lunar Forecast system.
 
