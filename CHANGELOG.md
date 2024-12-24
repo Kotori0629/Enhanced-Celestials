@@ -1,3 +1,6 @@
+# 6.0.1.1
+* Fix crashes/errors related to the new Lunar Forecast system.
+
 # 6.0.1.0
 * Rewrite Lunar forecasting internal to address various bugs and desync issues.
 * Add a new config option to enforce a max number of days between events.

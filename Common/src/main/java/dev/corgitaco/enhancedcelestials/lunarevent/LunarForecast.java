@@ -58,7 +58,6 @@ public class LunarForecast {
         String lunarEventNames = Arrays.toString(lunarEventSpawnRequirements.keySet().stream().map(Holder::unwrapKey).map(Optional::orElseThrow).map(ResourceKey::location).map(ResourceLocation::toString).toArray());
         String dimension = level.dimension().location().toString();
         EnhancedCelestials.LOGGER.info("Possible lunar events for dimension \"%s\" are %s.".formatted(dimension, lunarEventNames));
-
     }
 
     public void loadData(Data data) {
@@ -67,6 +66,19 @@ public class LunarForecast {
         this.pastEvents.clear();
         this.pastEvents.addAll(data.pastEvents);
         this.lastCheckedDay = data.lastCheckedDay;
+        if (!level.isClientSide) {
+            this.forecast.removeIf(lunarEventInstance -> {
+                Registry<LunarEvent> lunarEvents = level.registryAccess().registry(EnhancedCelestialsRegistry.LUNAR_EVENT_KEY).orElseThrow();
+                ResourceKey<LunarEvent> lunarEventKey = lunarEventInstance.getLunarEventKey();
+                return !lunarEvents.containsKey(lunarEventKey) || !lunarEvents.getHolderOrThrow(lunarEventKey).isBound();
+            });
+
+            this.pastEvents.removeIf(lunarEventInstance -> {
+                Registry<LunarEvent> lunarEvents = level.registryAccess().registry(EnhancedCelestialsRegistry.LUNAR_EVENT_KEY).orElseThrow();
+                ResourceKey<LunarEvent> lunarEventKey = lunarEventInstance.getLunarEventKey();
+                return !lunarEvents.containsKey(lunarEventKey) || !lunarEvents.getHolderOrThrow(lunarEventKey).isBound();
+            });
+        }
     }
 
     public Data saveData() {
@@ -81,7 +93,7 @@ public class LunarForecast {
         if (currentLunarEvent() != lastTickEvent) {
             eventSwitched(lastTickEvent, currentLunarEvent());
         }
-        lastTickEvent = getLunarEventForDay(getCurrentDay());
+        lastTickEvent = level.isNight() ? getLunarEventForDay(getCurrentDay()) : defaultLunarEvent();
     }
 
     public boolean switchingEvents() {
