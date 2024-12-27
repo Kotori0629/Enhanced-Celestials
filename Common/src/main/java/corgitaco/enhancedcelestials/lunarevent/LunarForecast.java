@@ -99,7 +99,16 @@ public class LunarForecast {
         if (currentLunarEvent() != lastTickEvent) {
             eventSwitched(lastTickEvent, currentLunarEvent());
         }
-        lastTickEvent = level.isNight() && (!level.isRaining() && this.dimensionSettingsHolder.value().requiresClearSkies()) ? getLunarEventForDay(getCurrentDay()) : defaultLunarEvent();
+
+        if (level.isNight()) {
+            if (level.isRaining() && this.dimensionSettingsHolder.value().requiresClearSkies()) {
+                lastTickEvent = defaultLunarEvent();
+            } else {
+                lastTickEvent = getLunarEventForDay(getCurrentDay());
+            }
+        } else {
+            lastTickEvent = defaultLunarEvent();
+        }
     }
 
     public boolean switchingEvents() {
