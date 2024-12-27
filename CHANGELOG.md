@@ -1,3 +1,6 @@
+# 6.0.1.3
+* Fix LunarForecast when requires clear skies is false.
+
 # 6.0.1.2
 * Fix issues with rain and lunar events.
 
