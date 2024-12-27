@@ -1,3 +1,6 @@
+# 5.0.2.3
+* Fix LunarForecast when requires clear skies is false.
+
 # 5.0.2.2
 * Fix issues with rain and lunar events.
 
